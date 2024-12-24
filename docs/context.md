@@ -15,7 +15,7 @@ O contexto do projeto é bem simples, a ideia é termos uma API simples que cons
 
 ### Cadastro de usuários
 
-No cadastro de usuários teremos nome, email, telefone e gostos básicos de livros
+No cadastro de usuários teremos nome, email, telefone e gostos básicos de livros.
 
 ### Cadastro e atualização de livros e autores
 
@@ -27,4 +27,18 @@ Os usuários também poderão cadastrar categorias para seus livros com a possib
 
 ### Avaliações de livros
 
-Estas serão únicas e exclusivas dos usuários que as fizeram, podendo dar uma nota de 0 a 5 e deixar um comentário do que achou a respeito
+Estas serão únicas e exclusivas dos usuários que as fizeram, podendo dar uma nota de 0 a 5 e deixar um comentário do que achou a respeito.
+
+### Algoritmo de recomendação
+
+### Registro de páginas lidas
+
+Uma das funcionalidades principais da API, para poder organizar melhor as leituras pessoais do usuário, sendo um dado que somente o usuário pode alterar.
+
+### Resumo pessoal do livro lido
+
+Para todos os livros é possível criar um resumo pessoal do livro, que pode ser compartilhado para fins de leitura, assim como a biblioteca pessoal.
+
+### Compartilhamento de biblioteca pessoal
+
+A ideia desse compartilhamento é poder mostrar a outros usuários o progresso de leitura pessoal.
