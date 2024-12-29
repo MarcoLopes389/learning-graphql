@@ -1,0 +1,1 @@
+export const MIN_AUTHOR_BIOGRAPHY_LENGTH = 100;

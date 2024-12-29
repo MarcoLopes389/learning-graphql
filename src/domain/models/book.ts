@@ -24,4 +24,36 @@ export class Book {
     this.name = name;
     this.publicationDate = publicationDate;
   }
+
+  public getId() {
+    return this.id;
+  }
+
+  public getName() {
+    return this.name;
+  }
+
+  public getPublicationDate() {
+    return this.publicationDate;
+  }
+
+  public setName(name: string) {
+    if (!name) {
+      throw new EmptyBookNameException();
+    }
+
+    this.name = name;
+  }
+
+  public setPublicationDate(publicationDate: Date) {
+    if (!publicationDate) {
+      throw new EmptyBookPublicationDateException();
+    }
+
+    if (publicationDate >= new Date()) {
+      throw new InvalidBookPublicationDateException();
+    }
+
+    this.publicationDate = publicationDate;
+  }
 }
