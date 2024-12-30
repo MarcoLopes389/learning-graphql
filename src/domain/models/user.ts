@@ -4,6 +4,7 @@ import { EmptyUserEmailException } from '../exceptions/empty-user-email.exceptio
 import { EmptyUserPasswordException } from '../exceptions/empty-user-password.exception';
 import { InvalidUserPasswordException } from '../exceptions/invalid-user-password.exception';
 import { InvalidUserEmailException } from '../exceptions/invalid-user-email.exception';
+import { TooShortUserPasswordException } from '../exceptions/too-short-user-password.exception';
 
 export class User {
   private id: string;
@@ -25,6 +26,15 @@ export class User {
     }
 
     if (password.length < 8) {
+      throw new TooShortUserPasswordException();
+    }
+
+    if (
+      !password.match(/[a-z]/g) ||
+      !password.match(/[A-Z]/g) ||
+      !password.match(/[0-9]/g) ||
+      !password.match(/[^a-zA-Z0-9]/g)
+    ) {
       throw new InvalidUserPasswordException();
     }
 
@@ -80,6 +90,15 @@ export class User {
     }
 
     if (password.length < 8) {
+      throw new TooShortUserPasswordException();
+    }
+
+    if (
+      !password.match(/[a-z]/g) ||
+      !password.match(/[A-Z]/g) ||
+      !password.match(/[0-9]/g) ||
+      !password.match(/[^a-zA-Z0-9]/g)
+    ) {
       throw new InvalidUserPasswordException();
     }
 

@@ -18,6 +18,7 @@ describe('User instance tests', () => {
       EmptyUserNameException,
     );
   });
+
   it('should throw an EmptyUserNameException if I try to set the user name with a null value', () => {
     const id = randomUUID();
     const name = 'Marco';
@@ -28,6 +29,7 @@ describe('User instance tests', () => {
 
     expect(() => user.setName(null)).toThrow(EmptyUserNameException);
   });
+
   it('should throw an EmptyUserEmailException if I try to instanciate an user with a null email', () => {
     const id = randomUUID();
     const name = 'Marco';
@@ -38,6 +40,7 @@ describe('User instance tests', () => {
       EmptyUserEmailException,
     );
   });
+
   it('should throw an EmptyUserEmailException if I try to set the user email with a null value', () => {
     const id = randomUUID();
     const name = 'Marco';
@@ -48,6 +51,7 @@ describe('User instance tests', () => {
 
     expect(() => user.setEmail(null)).toThrow(EmptyUserEmailException);
   });
+
   it('should throw an InvalidUserEmailException if I try to instanciate an user with an invalid email', () => {
     const id = randomUUID();
     const name = 'Marco';
@@ -55,9 +59,10 @@ describe('User instance tests', () => {
     const password = 'Marco123#';
 
     expect(() => new User(id, name, email, password)).toThrow(
-      EmptyUserEmailException,
+      InvalidUserEmailException,
     );
   });
+
   it('should throw an InvalidUserEmailException if I try to set the user email with an invalid value', () => {
     const id = randomUUID();
     const name = 'Marco';
@@ -71,6 +76,7 @@ describe('User instance tests', () => {
       InvalidUserEmailException,
     );
   });
+
   it('should throw an TooShortUserPasswordException if I try to instanciate an user with a password less than 8 chars', () => {
     const id = randomUUID();
     const name = 'Marco';
@@ -81,6 +87,7 @@ describe('User instance tests', () => {
       TooShortUserPasswordException,
     );
   });
+
   it('should throw an TooShortUserPasswordException if I try to set the user password with a value less than 8 chars', () => {
     const id = randomUUID();
     const name = 'Marco';
@@ -104,6 +111,7 @@ describe('User instance tests', () => {
       EmptyUserPasswordException,
     );
   });
+
   it('should throw an EmptyUserPasswordException if I try to set the user password with a null value', () => {
     const id = randomUUID();
     const name = 'Marco';
@@ -114,84 +122,107 @@ describe('User instance tests', () => {
 
     expect(() => user.setPassword(null)).toThrow(EmptyUserPasswordException);
   });
+
   it('should throw an InvalidUserPasswordException if I try to instanciate an user with a password without a special char', () => {
     const id = randomUUID();
     const name = 'Marco';
     const email = 'marco@example.com';
-    const password = 'Marco123#';
+    const password = 'Marco123';
 
     expect(() => new User(id, name, email, password)).toThrow(
       InvalidUserPasswordException,
     );
   });
+
   it('should throw an InvalidUserPasswordException if I try to set the user password with a value without a special char', () => {
     const id = randomUUID();
     const name = 'Marco';
     const email = 'marco@example.com';
     const password = 'Marco123#';
+    const newPassword = 'Marco123';
 
     const user = new User(id, name, email, password);
 
-    expect(() => user.setName(null)).toThrow(EmptyUserNameException);
+    expect(() => user.setPassword(newPassword)).toThrow(
+      InvalidUserPasswordException,
+    );
   });
+
   it('should throw an InvalidUserPasswordException if I try to instanciate an user with a password without a upper case letter', () => {
     const id = randomUUID();
     const name = 'Marco';
     const email = 'marco@example.com';
-    const password = 'Marco123#';
+    const password = 'marco123#';
 
     expect(() => new User(id, name, email, password)).toThrow(
-      EmptyUserNameException,
+      InvalidUserPasswordException,
     );
   });
+
   it('should throw an InvalidUserPasswordException if I try to instanciate an user with a password without a lower case letter', () => {
     const id = randomUUID();
     const name = 'Marco';
     const email = 'marco@example.com';
-    const password = 'Marco123#';
+    const password = 'MARCO123#';
 
     expect(() => new User(id, name, email, password)).toThrow(
-      EmptyUserNameException,
+      InvalidUserPasswordException,
     );
   });
+
   it('should throw an InvalidUserPasswordException if I try to set the user password with a value without a a number', () => {
     const id = randomUUID();
     const name = 'Marco';
     const email = 'marco@example.com';
     const password = 'Marco123#';
+    const newPassword = 'MARCooO#';
 
     const user = new User(id, name, email, password);
 
-    expect(() => user.setName(null)).toThrow(EmptyUserNameException);
+    expect(() => user.setPassword(newPassword)).toThrow(
+      InvalidUserPasswordException,
+    );
   });
+
   it('should throw an InvalidUserPasswordException if I try to set the user password with a value without a upper case letter', () => {
     const id = randomUUID();
     const name = 'Marco';
     const email = 'marco@example.com';
     const password = 'Marco123#';
+    const newPassword = 'marco12#';
 
     const user = new User(id, name, email, password);
 
-    expect(() => user.setName(null)).toThrow(EmptyUserNameException);
+    expect(() => user.setPassword(newPassword)).toThrow(
+      InvalidUserPasswordException,
+    );
   });
+
   it('should throw an InvalidUserPasswordException if I try to set the user password with a value without a lower case letter', () => {
     const id = randomUUID();
     const name = 'Marco';
     const email = 'marco@example.com';
     const password = 'Marco123#';
+    const newPassword = 'MARCOO12#';
 
     const user = new User(id, name, email, password);
 
-    expect(() => user.setName(null)).toThrow(EmptyUserNameException);
+    expect(() => user.setPassword(newPassword)).toThrow(
+      InvalidUserPasswordException,
+    );
   });
+
   it('should throw an InvalidUserPasswordException if I try to set the user password with a value without a number', () => {
     const id = randomUUID();
     const name = 'Marco';
     const email = 'marco@example.com';
     const password = 'Marco123#';
+    const newPassword = 'MARCOoo#';
 
     const user = new User(id, name, email, password);
 
-    expect(() => user.setName(null)).toThrow(EmptyUserNameException);
+    expect(() => user.setPassword(newPassword)).toThrow(
+      InvalidUserPasswordException,
+    );
   });
 });
