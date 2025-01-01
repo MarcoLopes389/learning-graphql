@@ -13,7 +13,7 @@ export class BookDao {
 
   async findAll() {
     const result = await this.db.session().run('MATCH (b:Book) return b');
-    console.log(result);
+    console.log(result.records.at(0));
     const date = new Date();
     return [
       new Book(
