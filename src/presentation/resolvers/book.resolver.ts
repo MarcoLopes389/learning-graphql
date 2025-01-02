@@ -11,4 +11,9 @@ export class BookResolver {
   async findAll() {
     return await this.findBooksUsecase.execute();
   }
+
+  @Mutation(() => Book)
+  async create(@Args() args: CreateBookArg) {
+    return args;
+  }
 }
