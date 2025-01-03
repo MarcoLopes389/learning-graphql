@@ -24,4 +24,10 @@ export class BookDao {
     const json = await result.toJson();
     return this.bookMapper.toBook(json);
   }
+
+  async findOneByName(name: string) {
+    const result = await this.neo4jAdapter.book().first('name', name);
+    const json = await result.toJson();
+    return this.bookMapper.toBook(json);
+  }
 }

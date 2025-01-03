@@ -4,7 +4,7 @@ export class BookMapper {
   constructor() {}
 
   toBooks(json: any[]) {
-    return json.map((item) => this.toBook(item));
+    return json.map(this.toBook);
   }
 
   toBook(json: any) {

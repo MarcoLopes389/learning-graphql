@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 export class Neo4jAdapterMock {
   book() {
     return this;
@@ -16,6 +17,18 @@ export class Neo4jAdapterMock {
   }
 
   async create(obj: any) {
-    return obj;
+    return {
+      toJson: () => {
+        return { test: true };
+      },
+    };
+  }
+
+  async first(key: string, value: string) {
+    return {
+      toJson: () => {
+        return { test: true };
+      },
+    };
   }
 }

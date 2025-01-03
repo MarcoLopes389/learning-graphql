@@ -10,6 +10,8 @@ import { Book } from 'src/domain/models/book';
 describe('BookDao tests', () => {
   let bookDao: BookDao;
 
+  beforeEach(() => jest.clearAllMocks());
+
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       providers: [BookDao, Neo4jAdapter, BookMapper],
@@ -53,5 +55,20 @@ describe('BookDao tests', () => {
     expect(book).toHaveBeenCalledTimes(1);
     expect(create).toHaveBeenCalled();
     expect(create).toHaveBeenCalledTimes(1);
+  });
+
+  it('should call Neo4jAdapter book function and first function', async () => {
+    const book = jest.spyOn(Neo4jAdapterMock.prototype, 'book');
+    const first = jest.spyOn(Neo4jAdapterMock.prototype, 'first');
+
+    const name = 'Teste';
+
+    await bookDao.findOneByName(name);
+
+    expect(book).toHaveBeenCalled();
+    expect(book).toHaveBeenCalledTimes(1);
+    expect(first).toHaveBeenCalled();
+    expect(first).toHaveBeenCalledTimes(1);
+    expect(first).toHaveBeenCalledWith('name', name);
   });
 });

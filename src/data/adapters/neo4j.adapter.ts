@@ -15,8 +15,8 @@ export class Neo4jAdapter {
   }
 
   private initModels() {
-    this.models.set(USER_MODEL, this.neode.model(BOOK_MODEL, BOOK_SCHEMA));
-    this.models.set(BOOK_MODEL, this.neode.model(USER_MODEL, USER_SCHEMA));
+    this.models.set(BOOK_MODEL, this.neode.model(BOOK_MODEL, BOOK_SCHEMA));
+    this.models.set(USER_MODEL, this.neode.model(USER_MODEL, USER_SCHEMA));
   }
 
   book() {

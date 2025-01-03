@@ -13,4 +13,8 @@ export class BookRepository {
   async findAll() {
     return await this.bookDao.findAll();
   }
+
+  async findOneByName(name: string) {
+    return await this.bookDao.findOneByName(name);
+  }
 }
