@@ -3,7 +3,7 @@ import { Book } from 'src/domain/models/book';
 
 const date = new Date();
 
-export const FIND_ALL_BOOK_DAO = [
+export const FIND_ALL_BOOK_REPOSITORY = [
   new Book(
     randomUUID(),
     'Harry Potter',
@@ -11,8 +11,8 @@ export const FIND_ALL_BOOK_DAO = [
   ),
 ];
 
-export class BookDaoMock {
+export class BookRepositoryMock {
   async findAll() {
-    return FIND_ALL_BOOK_DAO;
+    return FIND_ALL_BOOK_REPOSITORY;
   }
 }

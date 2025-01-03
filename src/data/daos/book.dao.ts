@@ -1,38 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { Book } from 'src/domain/models/book';
-import { randomUUID } from 'crypto';
+import { Neo4jAdapter } from '../adapters/neo4j.adapter';
+import { BookMapper } from '../mappers/book.mapper';
 
 @Injectable()
 export class BookDao {
-  // constructor(
-  //   @Inject(DB_INJECT)
-  //   private readonly db: Driver,
-  // ) {}
+  constructor(
+    private readonly neo4jAdapter: Neo4jAdapter,
+    private readonly bookMapper: BookMapper,
+  ) {}
 
   async findAll() {
-    // const result = await this.db.session().run('MATCH (b:Book) return b');
-
-    const date = new Date();
-    return [
-      new Book(
-        randomUUID(),
-        'Harry Potter',
-        new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1),
-      ),
-    ];
+    const result = await this.neo4jAdapter.book().all();
+    const json = await result.toJson();
+    return this.bookMapper.toBooks(json as object[]);
   }
 
   async create(book: Book) {
-    // await this.db.session().run('CREATE (b:Book{name: $name, }) RETURN b', {
-    //   name: book.getName(),
-    //   publicationDate: book.getPublicationDate(),
-    // });
-
-    const date = new Date();
-    return new Book(
-      randomUUID(),
-      'Harry Potter',
-      new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1),
-    );
+    const result = await this.neo4jAdapter.book().create({
+      name: book.getName(),
+      publicationDate: book.getPublicationDate(),
+    });
+    const json = await result.toJson();
+    return this.bookMapper.toBook(json);
   }
 }

@@ -1,17 +1,10 @@
 import { Module } from '@nestjs/common';
-import { createDriver, DB_INJECT } from './db';
 import { BookDao } from './daos/book.dao';
+import { Neo4jAdapter } from './adapters/neo4j.adapter';
+import { BookMapper } from './mappers/book.mapper';
 
 @Module({
-  providers: [
-    {
-      provide: DB_INJECT,
-      useFactory: () => {
-        return createDriver();
-      },
-    },
-    BookDao,
-  ],
+  providers: [BookDao, Neo4jAdapter, BookMapper],
   exports: [BookDao],
 })
 export class DataModule {}

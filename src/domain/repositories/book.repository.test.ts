@@ -1,14 +1,14 @@
 import { BookDao } from '../../data/daos/book.dao';
 import { BookRepository } from './book.repository';
 import { Test } from '@nestjs/testing';
-import { BookDaoMock } from './__mocks__/book.dao.mock';
+import { BookDaoMock, FIND_ALL_BOOK_DAO } from './__mocks__/book.dao.mock';
 
 describe('Book Repository Tests', () => {
   let bookRepository: BookRepository;
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      providers: [BookRepository],
+      providers: [BookRepository, BookDao],
     })
       .overrideProvider(BookDao)
       .useClass(BookDaoMock)
@@ -17,12 +17,18 @@ describe('Book Repository Tests', () => {
     bookRepository = moduleRef.get(BookRepository);
   });
 
-  it('should call BookDao findAll on call findAll', () => {
+  it('should call BookDao findAll on call findAll', async () => {
     const findAll = jest.spyOn(BookDaoMock.prototype, 'findAll');
 
-    bookRepository.findAll();
+    await bookRepository.findAll();
 
     expect(findAll).toHaveBeenCalled();
     expect(findAll).toHaveBeenCalledTimes(1);
+  });
+
+  it('should return BookDao result on findAll', async () => {
+    const result = await bookRepository.findAll();
+
+    expect(result).toStrictEqual(FIND_ALL_BOOK_DAO);
   });
 });
