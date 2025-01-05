@@ -1,16 +1,18 @@
-import Neode, { fromEnv, Model } from 'neode';
+import Neode, { Model } from 'neode';
 import { BOOK_MODEL, BOOK_SCHEMA } from '../models/book.model';
 import { USER_MODEL, USER_SCHEMA } from '../models/user.model';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+
+export const NEODE = 'neode';
 
 @Injectable()
 export class Neo4jAdapter {
-  private readonly neode: Neode;
   private models: Map<string, Model<unknown>> = new Map();
 
-  constructor() {
-    this.neode = fromEnv();
-
+  constructor(
+    @Inject(NEODE)
+    private readonly neode: Neode,
+  ) {
     this.initModels();
   }
 

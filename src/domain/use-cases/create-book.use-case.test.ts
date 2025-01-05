@@ -3,6 +3,7 @@ import { BookRepository } from '../repositories/book.repository';
 import { BookRepositoryMock } from './__mocks__/book.repository.mock';
 import { CreateBookUseCase } from './create-book.use-case';
 import { DuplicatedBookException } from '../exceptions/duplicated-book.exception';
+import { CreateBookRequestDto } from '../dtos/create-book-request.dto';
 
 describe('CreateBookUseCase tests', () => {
   let createBookUseCase: CreateBookUseCase;
@@ -24,11 +25,10 @@ describe('CreateBookUseCase tests', () => {
       'findOneByName',
     );
 
+    const dto = new CreateBookRequestDto('Teste', new Date());
+
     try {
-      await createBookUseCase.execute({
-        name: 'Teste',
-        publicationDate: new Date().toISOString(),
-      });
+      await createBookUseCase.execute(dto);
     } catch (error) {
       expect(error).toBeInstanceOf(DuplicatedBookException);
     }

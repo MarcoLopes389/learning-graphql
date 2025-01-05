@@ -1,20 +1,20 @@
 import { Test } from '@nestjs/testing';
 import { Neo4jAdapterMock } from './__mocks__/neo4j.adapter.mock';
-import { BookDao } from './book.dao';
 import { Neo4jAdapter } from '../adapters/neo4j.adapter';
 import { BookMapper } from '../mappers/book.mapper';
 import { BookMapperMock } from './__mocks__/book.mapper.mock';
 import { randomUUID } from 'crypto';
 import { Book } from 'src/domain/models/book';
+import { UserDao } from './user.dao';
 
-describe('BookDao tests', () => {
-  let bookDao: BookDao;
+describe('UserDao tests', () => {
+  let userDao: UserDao;
 
   beforeEach(() => jest.clearAllMocks());
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      providers: [BookDao, Neo4jAdapter, BookMapper],
+      providers: [UserDao, Neo4jAdapter, BookMapper],
     })
       .overrideProvider(Neo4jAdapter)
       .useClass(Neo4jAdapterMock)
@@ -22,14 +22,14 @@ describe('BookDao tests', () => {
       .useClass(BookMapperMock)
       .compile();
 
-    bookDao = moduleRef.get(BookDao);
+    userDao = moduleRef.get(UserDao);
   });
 
   it('should call Neo4jAdapter book function and all function', async () => {
     const book = jest.spyOn(Neo4jAdapterMock.prototype, 'book');
     const all = jest.spyOn(Neo4jAdapterMock.prototype, 'all');
 
-    await bookDao.findAll();
+    await userDao.findAll();
 
     expect(book).toHaveBeenCalled();
     expect(book).toHaveBeenCalledTimes(1);
@@ -43,7 +43,7 @@ describe('BookDao tests', () => {
 
     const date = new Date();
 
-    await bookDao.create(
+    await userDao.create(
       new Book(
         randomUUID(),
         'Harry Potter',
@@ -63,7 +63,7 @@ describe('BookDao tests', () => {
 
     const name = 'Teste';
 
-    await bookDao.findOneByName(name);
+    await userDao.findOneByName(name);
 
     expect(book).toHaveBeenCalled();
     expect(book).toHaveBeenCalledTimes(1);
@@ -79,7 +79,7 @@ describe('BookDao tests', () => {
 
     const name = 'Teste';
 
-    const result = await bookDao.findOneByName(name);
+    const result = await userDao.findOneByName(name);
 
     expect(result).toBeNull();
   });

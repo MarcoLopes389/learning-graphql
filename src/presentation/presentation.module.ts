@@ -11,6 +11,12 @@ import { GraphQLModule } from '@nestjs/graphql';
       autoSchemaFile: true,
       driver: ApolloDriver,
       playground: false,
+      formatError: (error) => {
+        return {
+          message: error.message,
+          code: error.extensions?.code,
+        };
+      },
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
     DomainModule,
