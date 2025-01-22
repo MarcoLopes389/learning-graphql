@@ -10,9 +10,9 @@ O modelo de trabalho será orientado a testes, seguindo as especificações do B
 ## Patterns
 
 Os patterns usados neste projeto serão os seguintes:
-- repository
-- use case
-- dao
-- controller
-- mappers
-- dtos
+- Repository
+- Use case
+- DAO
+- Controller
+- Mappers
+- DTOs
